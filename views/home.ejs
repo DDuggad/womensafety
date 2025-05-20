@@ -1,451 +1,1227 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAFEHer - AI-Powered Women Safety</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>SafeHer - Empowering Women's Safety</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1a5276; /* Professional blue */
-            --secondary-color: #2980b9;
-            --accent-color: #e74c3c;
-            --light-color: #f8f9fa;
-            --dark-color: #2c3e50;
+            --primary: #ff4081;
+            --primary-dark: #c60055;
+            --secondary: #5c6bc0;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --text: #333;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        body {
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
+        }
+
+        body {
+            color: var(--text);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 30px;
+            margin-right: 10px;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .logo:hover i {
+            transform: rotate(20deg) scale(1.1);
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-links .cta-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+
+        .nav-links .cta-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .nav-links .login-btn {
+            color: var(--primary);
+            padding: 8px 18px;
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+
+        .nav-links .login-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 64, 129, 0.9) 0%, rgba(92, 107, 192, 0.9) 100%), url('icon-512.png') center/cover no-repeat;
+            color: white;
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
             line-height: 1.6;
         }
-        
-        /* Header Styles */
-        .navbar {
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
-        
-        .navbar-brand {
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-        }
-        
-        .nav-link {
-            font-weight: 500;
-            transition: all 0.3s ease;
-            color: #333;
-            padding: 0.5rem 1rem;
-        }
-        
-        .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(135deg, rgba(26, 82, 118, 0.9) 0%, rgba(41, 128, 185, 0.8) 100%);
-            color: white;
-            padding: 6rem 0 5rem;
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
-        
-        .hero-title {
-            font-weight: 700;
-            font-size: 2.8rem;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-        }
-        
-        .hero-subtitle {
-            font-weight: 400;
-            opacity: 0.9;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-        
-        /* Features Section */
-        .feature-card {
-            border: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            height: 100%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-        
-        /* How It Works Section */
-        .step-circle {
-            width: 60px;
-            height: 60px;
-            background-color: var(--primary-color);
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
-        
-        /* CTA Section */
-        .cta-section {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 4rem 0;
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
-        
-        .btn-cta {
-            background-color: var(--accent-color);
-            border: none;
-            padding: 0.75rem 2.5rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-cta:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
-        }
-        
-        /* Testimonial Section */
-        .testimonial-card {
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+        .btn-primary {
             background-color: white;
-            height: 100%;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.05);
+            color: var(--primary);
         }
-        
-        .testimonial-img-placeholder {
-            background-color: #e9ecef;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6c757d;
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .features {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h3 {
+            font-size: 36px;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to bottom, rgba(255, 64, 129, 0.05), transparent);
+            transition: height 0.5s ease;
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card:hover::before {
+            height: 100%;
+        }
+
+        .feature-icon {
             width: 70px;
             height: 70px;
-            font-size: 1.5rem;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark-color);
+            background-color: var(--primary);
             color: white;
-            padding: 4rem 0 2rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
-        .footer-title {
-            font-weight: 700;
-            margin-bottom: 1.5rem;
+
+        .how-it-works {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            padding-bottom: 10px;
-            font-size: 1.2rem;
+            overflow: hidden;
         }
-        
-        .footer-title:after {
+
+        .step-card::after {
             content: '';
             position: absolute;
-            left: 0;
             bottom: 0;
-            width: 30px;
-            height: 2px;
-            background-color: var(--accent-color);
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.8s ease;
         }
-        
-        .footer-link {
-            color: rgba(255, 255, 255, 0.8);
+
+        .step-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .step-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover .step-icon {
+            transform: scale(1.2);
+            color: var(--primary-dark);
+        }
+
+        .step-card h4 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .step-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .app-section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .app-text {
+            width: 100%;
+            margin-bottom: 50px;
+        }
+
+        .app-store-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .app-store-btn {
+            display: flex;
+            align-items: center;
+            background-color: var(--dark);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
             text-decoration: none;
-            transition: all 0.3s ease;
-            display: block;
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
+            transition: all 0.3s;
+            margin: 0 auto;
         }
-        
-        .footer-link:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-        
-        .social-icon {
-            font-size: 1.2rem;
-            margin-right: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            color: white;
+
+        .app-store-btn:hover {
+            background-color: black;
             transform: translateY(-3px);
         }
-        
-        /* Professional touches */
-        .section-title {
-            font-weight: 700;
+
+        .app-store-btn i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .app-store-text span {
+            display: block;
+            font-size: 12px;
+        }
+
+        .app-store-text strong {
+            font-size: 16px;
+        }
+
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #ffe0ef 0%, #f8f9fa 100%);
+            overflow: hidden;
+        }
+
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
             position: relative;
-            padding-bottom: 15px;
-            margin-bottom: 2rem;
-            font-size: 2rem;
         }
-        
-        .section-title:after {
-            content: '';
+
+        .testimonial-track {
+            position: relative;
+            min-height: 350px;
+            margin-bottom: 40px;
+        }
+
+        .testimonial-slide {
             position: absolute;
+            top: 0;
             left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--primary-color);
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
         }
-        
-        .text-center .section-title:after {
-            left: 50%;
-            transform: translateX(-50%);
+
+        .testimonial-slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
         }
-        
-        .btn {
-            border-radius: 4px;
-            font-weight: 500;
-            padding: 0.6rem 1.5rem;
+
+        .testimonial-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 36px 32px 32px 32px;
+            box-shadow: 0 8px 32px rgba(255, 64, 129, 0.10), 0 2px 8px rgba(92, 107, 192, 0.06);
+            border: 2px solid #ffe0ef;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 280px;
         }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
+
+        .testimonial-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 18px 18px 0 0;
         }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
+
+        .testimonial-quote {
+            font-size: 19px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 28px;
+            font-style: italic;
+            text-align: center;
         }
-        
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
+
+        .testimonial-user {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-top: auto;
         }
-        
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
+
+        .testimonial-avatar img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 3px solid #ffb6d5;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(255, 64, 129, 0.10);
         }
-        
-        /* Spacing adjustments */
-        section {
-            padding: 5rem 0;
+
+        .testimonial-info h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 2px;
         }
-        
-        .bg-light {
-            background-color: var(--light-color) !important;
+
+        .testimonial-info p {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .testimonial-arrows {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .testimonial-arrow {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff4081 60%, #5c6bc0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(255, 64, 129, 0.13);
+            color: #fff;
+            font-size: 22px;
+            border: none;
+            transition: background 0.2s, transform 0.2s;
+            pointer-events: auto;
+        }
+
+        .testimonial-arrow:hover {
+            background: linear-gradient(135deg, #c60055 60%, #5c6bc0 100%);
+            transform: scale(1.12);
+        }
+
+        .testimonial-arrow.prev-testimonial {
+            margin-left: -24px;
+        }
+
+        .testimonial-arrow.next-testimonial {
+            margin-right: -24px;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 18px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .testimonial-dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #ffd6ea;
+            border: 2px solid #ff4081;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            outline: none;
+        }
+
+        .testimonial-dot.active {
+            background: var(--primary);
+            transform: scale(1.18);
+            border-color: var(--primary-dark);
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 98vw;
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                max-width: 100vw;
+                padding: 0 6px;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .features,
+            .how-it-works,
+            .app-section,
+            .testimonials {
+                padding: 60px 0;
+            }
+
+            .testimonial-card {
+                padding: 24px 8px 24px 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 0;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100vw;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 1001;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                padding-bottom: 15px;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+                z-index: 100;
+            }
+
+            .nav-links li {
+                margin: 12px 0;
+            }
+
+            .nav-links a {
+                padding: 10px 15px;
+                display: block;
+            }
+
+            .hamburger {
+                display: flex;
+                width: 40px;
+                height: 40px;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                transition: all 0.3s;
+                background: rgba(255, 64, 129, 0.1);
+                border: none;
+                color: var(--primary);
+            }
+
+            .hamburger:hover {
+                background: rgba(255, 64, 129, 0.2);
+            }
+
+            .hero h2 {
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+
+            .hero p {
+                font-size: 16px;
+                margin-bottom: 25px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 10px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .feature-card {
+                padding: 20px 15px;
+                margin-bottom: 15px;
+            }
+
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .steps-container {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .step-card {
+                min-width: 100%;
+                padding: 20px 15px;
+            }
+
+            .testimonial-card {
+                padding: 18px 4px 18px 4px;
+            }
+
+            .testimonial-arrows {
+                position: static;
+                margin-top: 12px;
+                justify-content: center;
+                gap: 32px;
+            }
+
+            .testimonial-arrow {
+                margin: 0;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .section-title h3,
+            .app-text h3 {
+                font-size: 22px;
+            }
+
+            .feature-card {
+                padding: 12px;
+            }
+
+            .app-store-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .testimonial-card {
+                padding: 10px 2px 10px 2px;
+            }
+
+            .testimonial-avatar img {
+                width: 44px;
+                height: 44px;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <header>
         <div class="container">
-            <a class="navbar-brand" href="/">
-                <i class="fas fa-shield-alt me-2"></i> SAFEHer
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="/features">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/how-it-works">How It Works</a>
-                    </li>
-                         
-                </ul>
-                <div class="ms-3">
-                    <a href="/login" class="btn btn-outline-primary me-2">Login</a>
-                    <a href="/signup" class="btn btn-primary">Sign Up</a>
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="/home">
+                        <i class="fas fa-shield-alt"></i>
+                        <h1>Safe<span>Her</span></h1>
+                    </a>
                 </div>
-            </div>
+                <ul class="nav-links">
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/features">Features</a></li>
+                    <li><a href="/how-it-works">How It Works</a></li>
+                    <li><a href="/login" class="login-btn">Login</a></li>
+                    <li><a href="/signup" class="cta-btn">Sign Up</a></li>
+                </ul>
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero" id="home">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="hero-title">AI-Powered Safety For Women</h1>
-                    <p class="hero-subtitle">Advanced protection platform with real-time location tracking, voice detection, and emergency response at your fingertips.</p>
-                    <div class="d-flex justify-content-center flex-wrap">
-                        <a href="/signup" class="btn btn-light btn-lg me-3 mb-3">Get Started</a>
-                        <a href="/how-it-works" class="btn btn-outline-light btn-lg mb-3">Learn More</a>
-                    </div>
+            <div class="hero-content animate fadeInUp">
+                <h2>Empowering Women's Safety through Technology</h2>
+                <p>SafeHer provides comprehensive safety solutions designed specifically for women. Our suite of tools
+                    and resources help you stay safe anytime, anywhere.</p>
+                <div class="hero-buttons">
+                    <a href="/how-it-works" class="btn btn-primary">Learn More</a>
+                    <a href="/signup" class="btn btn-secondary">Get Started</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="py-5 bg-light">
-        <div class="container py-5">
-            <div class="text-center mb-5">
-                <h2 class="section-title d-inline-block">Our Safety Features</h2>
-                <p class="text-muted lead col-md-8 mx-auto">Comprehensive protection powered by artificial intelligence</p>
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title animate fadeInUp">
+                <h3>Safety Features</h3>
+                <p>SafeHer offers a range of innovative tools designed to keep you protected in any situation.</p>
             </div>
 
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card text-center">
-                        <div class="feature-icon mx-auto">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <h4 class="mb-3">Real-Time Location</h4>
-                        <p class="text-muted">Share your exact location with trusted contacts in real-time with precision tracking.</p>
+            <div class="features-grid">
+                <div class="feature-card animate slideInLeft delay-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
                     </div>
+                    <h4>Voice Activated SOS</h4>
+                    <p>Trigger emergency alerts with simple voice commands when you can't reach your phone easily.</p>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card text-center">
-                        <div class="feature-icon mx-auto">
-                            <i class="fas fa-microphone"></i>
-                        </div>
-                        <h4 class="mb-3">Voice Detection</h4>
-                        <p class="text-muted">AI-powered voice recognition identifies distress calls and automatically triggers alerts.</p>
+
+                <div class="feature-card animate fadeInUp delay-200">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
                     </div>
+                    <h4>Emergency SOS Button</h4>
+                    <p>Send instant alerts with your location to emergency contacts with one tap of our prominent SOS
+                        button.</p>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card text-center">
-                        <div class="feature-icon mx-auto">
-                            <i class="fas fa-exclamation-circle"></i>
-                        </div>
-                        <h4 class="mb-3">Emergency Alerts</h4>
-                        <p class="text-muted">One-tap emergency system notifies your contacts and authorities immediately.</p>
+
+                <div class="feature-card animate slideInRight delay-300">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
                     </div>
+                    <h4>Shake Detection</h4>
+                    <p>Rapidly shake your phone to trigger emergency protocols without needing to unlock or access the
+                        app.</p>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card text-center">
-                        <div class="feature-icon mx-auto">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h4 class="mb-3">Risk Assessment</h4>
-                        <p class="text-muted">Smart analysis of your surroundings to predict and prevent potential threats.</p>
+
+                <div class="feature-card animate slideInLeft delay-200">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
                     </div>
+                    <h4>Safe Route Planning</h4>
+                    <p>Navigate through safer routes with our AI-powered navigation system that avoids high-crime areas.
+                    </p>
+                </div>
+
+                <div class="feature-card animate fadeInUp delay-300">
+                    <div class="feature-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h4>Multi-channel Alerts</h4>
+                    <p>Automatically send alerts through SMS, WhatsApp, and email to reach your emergency contact
+                        instantly.</p>
+                </div>
+
+                <div class="feature-card animate slideInRight delay-400">
+                    <div class="feature-icon">
+                        <i class="fas fa-location-arrow"></i>
+                    </div>
+                    <h4>Live Location Sharing</h4>
+                    <p>Automatically share your real-time location with your emergency contact during distress
+                        situations.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- How It Works Section -->
-    <section class="py-5">
-        <div class="container py-5">
-            <div class="text-center mb-5">
-                <h2 class="section-title d-inline-block">How It Works</h2>
-                <p class="text-muted lead col-md-8 mx-auto">Simple setup for powerful protection when you need it most</p>
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title animate fadeInUp">
+                <h3>How SafeHer Works</h3>
+                <p>Simple steps to keep yourself protected with our comprehensive safety solution.</p>
             </div>
 
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <div class="step-circle mx-auto">1</div>
-                        <h4 class="mb-3">Create Account</h4>
-                        <p class="text-muted">Register and add your emergency contacts who will be alerted in case of emergencies.</p>
+            <div class="steps-container">
+                <div class="step-card animate slideInLeft delay-100" id="step-1">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-download"></i>
                     </div>
+                    <h4>Download & Register</h4>
+                    <p>Download the app and create your account with basic information to get started.</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <div class="step-circle mx-auto">2</div>
-                        <h4 class="mb-3">Enable Features</h4>
-                        <p class="text-muted">Activate location sharing and voice detection in your account settings.</p>
+
+                <div class="step-card animate scaleIn delay-200" id="step-2">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-user-friends"></i>
                     </div>
+                    <h4>Add Emergency Contact</h4>
+                    <p>Add one trusted emergency contact phone number and email that will receive alerts in distress
+                        situations.</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <div class="step-circle mx-auto">3</div>
-                        <h4 class="mb-3">Stay Protected</h4>
-                        <p class="text-muted">Our system works in the background to keep you safe throughout your day.</p>
+
+                <div class="step-card animate slideInRight delay-300" id="step-3">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
+                    <h4>Stay Protected</h4>
+                    <p>Activate any of the emergency options when needed - voice command, SOS button, or shake
+                        detection.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="text-center mt-5">
-                <a href="/how-it-works" class="btn btn-outline-primary btn-lg">Detailed Overview</a>
+    <!-- App Section -->
+    <section class="app-section" id="app">
+        <div class="container">
+            <div class="app-content">
+                <div class="app-text animate fadeInUp">
+                    <h3>Download the SafeHer App</h3>
+                    <p>Take control of your safety with our innovative mobile application. SafeHer puts powerful safety
+                        tools at your fingertips, allowing you to move through the world with greater confidence.</p>
+                    <p>The app works seamlessly in the background, ready to provide assistance whenever you need it.</p>
+                    <div class="app-store-buttons animate bounceIn delay-300">
+                        <a href="https://github.com/DDuggad/womensafety/blob/main/app-release-unsigned-aligned.apk"
+                            class="app-store-btn" style="margin: 0 auto;">
+                            <i class="fab fa-android"></i>
+                            <div class="app-store-text">
+                                <span>Get it on</span>
+                                <strong>Android</strong>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-   
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title animate fadeInUp">
+                <h3>What Our Users Say</h3>
+                <p>Real stories from women who have experienced the benefits of SafeHer.</p>
+            </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container text-center">
-            <h2 class="fw-bold mb-4">Ready to Feel Safer?</h2>
-            <p class="lead mb-5 col-md-8 mx-auto">Join our community and take control of your safety with our advanced protection platform.</p>
-            <div class="d-flex justify-content-center flex-wrap">
-                <a href="/signup" class="btn btn-cta btn-lg me-3 mb-3">Get Started Now</a>
-                
+            <div class="testimonial-container animate fadeInUp">
+                <div class="testimonial-track">
+                    <div class="testimonial-slide active" data-index="0">
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">SafeHer's voice-activated SOS has been a lifesaver for me
+                                during my late night commutes. The shake detection feature works perfectly even when my
+                                phone is in my pocket or bag.</p>
+                            <div class="testimonial-user">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Priya Sharma">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Priya Sharma</h4>
+                                    <p>Delhi, India</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide" data-index="1">
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">I use public transport daily, and SafeHer's location sharing
+                                gives my family peace of mind. The alerts through WhatsApp, SMS, and email ensure they
+                                are notified even with poor network.</p>
+                            <div class="testimonial-user">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Neha Patel">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Neha Patel</h4>
+                                    <p>Mumbai, India</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide" data-index="2">
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">As a college student with late evening classes, the safe route
+                                planning feature helps me avoid unsafe areas. Being able to trigger an SOS with just my
+                                voice gives me confidence when walking alone.</p>
+                            <div class="testimonial-user">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Anjali Menon">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Anjali Menon</h4>
+                                    <p>Bangalore, India</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide" data-index="3">
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">My job as a healthcare worker requires night shifts, and
+                                SafeHer has become essential. The multi-channel alerts ensure my emergency contact is
+                                always notified if I need assistance.</p>
+                            <div class="testimonial-user">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Ritu Das">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Ritu Das</h4>
+                                    <p>Kolkata, India</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide" data-index="4">
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">I frequently travel for work, and the shake detection SOS has
+                                been incredibly useful when I've felt unsafe in cabs. The automatic location updates
+                                have made all the difference in emergency situations.</p>
+                            <div class="testimonial-user">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/79.jpg" alt="Lakshmi Rajesh">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Lakshmi Rajesh</h4>
+                                    <p>Chennai, India</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-arrows">
+                        <button class="testimonial-arrow prev-testimonial" aria-label="Previous testimonial">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="testimonial-arrow next-testimonial" aria-label="Next testimonial">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="testimonial-dots">
+                    <button class="testimonial-dot active" data-index="0"></button>
+                    <button class="testimonial-dot" data-index="1"></button>
+                    <button class="testimonial-dot" data-index="2"></button>
+                    <button class="testimonial-dot" data-index="3"></button>
+                    <button class="testimonial-dot" data-index="4"></button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row gy-4">
-                <div class="col-lg-5">
-                    <h3 class="footer-title">SAFEHer</h3>
-                    <p class="mb-4">Advanced safety solutions designed specifically for women. Our mission is to create a world where every woman feels protected and empowered.</p>
-                    <div class="mb-4">
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4">
-                    <h5 class="footer-title">Navigation</h5>
-                    <a href="/" class="footer-link">Home</a>
-                    <a href="/features" class="footer-link">Features</a>
-                    <a href="/how-it-works" class="footer-link">How It Works</a>
-                    <a href="/contact" class="footer-link">Contact</a>
-                </div>
-                
-                <div class="col-lg-3 col-md-4">
-                    <h5 class="footer-title">Contact Info</h5>
-                    <p class="mb-2"><i class="fas fa-envelope me-2"></i> support@safeher.com</p>
-                    <p class="mb-2"><i class="fas fa-phone me-2"></i>+91 7988363394</p>
-                    <p><i class="fas fa-map-marker-alt me-2"></i> B.M.S College of engineering,Bangaluru</p>
-                </div>
-            </div>
-            <hr class="mt-5 mb-4">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025 SAFEHer. All rights reserved. <a href="/privacy" class="text-white">Privacy Policy</a> | <a href="/terms" class="text-white">Terms of Service</a></p>
-            </div>
-        </div>
-    </footer>
+    <!-- Emergency Button -->
+    <div class="emergency-btn">
+        <i class="fas fa-exclamation"></i>
+    </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navigation toggle
+        document.getElementById('hamburger').addEventListener('click', function () {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+
+            // Change icon based on state
+            const icon = this.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
+
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function (event) {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.getElementById('hamburger');
+
+            if (navLinks.classList.contains('active') &&
+                !navLinks.contains(event.target) &&
+                !hamburger.contains(event.target)) {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').className = 'fas fa-bars';
+            }
+        });
+
+        // Sticky header
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Enhanced Animation on scroll
+        const animatedElements = document.querySelectorAll('.animate');
+
+        function checkIfInView() {
+            const triggerBottom = window.innerHeight * 0.85;
+
+            animatedElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+
+                if (elementTop < triggerBottom) {
+                    element.style.visibility = 'visible';
+                    if (!element.classList.contains('animated')) {
+                        element.classList.add('animated');
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkIfInView);
+        window.addEventListener('resize', checkIfInView);
+        window.addEventListener('load', () => {
+            // Set initial visibility to hidden
+            animatedElements.forEach(el => {
+                el.style.visibility = 'hidden';
+            });
+
+            // Check after a short delay to ensure page is fully loaded
+            setTimeout(checkIfInView, 100);
+        });
+
+        // Feature cards hover effect with MUCH slower animations
+        const featureCards = document.querySelectorAll('.feature-card');
+
+        featureCards.forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                const icon = this.querySelector('.feature-icon');
+                icon.style.transition = 'all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                icon.style.transform = 'rotate(360deg) scale(1.1)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                const icon = this.querySelector('.feature-icon');
+                icon.style.transition = 'all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                icon.style.transform = 'rotate(0deg) scale(1)';
+            });
+        });
+
+        // Enhanced Testimonials functionality with fixed position
+        let currentTestimonialIndex = 0;
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        const prevTestimonialBtn = document.querySelector('.prev-testimonial');
+        const nextTestimonialBtn = document.querySelector('.next-testimonial');
+        let testimonialInterval;
+
+        function showTestimonial(index) {
+            if (index < 0) index = testimonialSlides.length - 1;
+            if (index >= testimonialSlides.length) index = 0;
+
+            testimonialSlides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            testimonialDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentTestimonialIndex = index;
+        }
+
+        function startTestimonialInterval() {
+            testimonialInterval = setInterval(() => {
+                showTestimonial(currentTestimonialIndex + 1);
+            }, 5000);
+        }
+
+        testimonialDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.getAttribute('data-index'));
+                clearInterval(testimonialInterval);
+                showTestimonial(index);
+                startTestimonialInterval();
+            });
+        });
+
+        prevTestimonialBtn.addEventListener('click', () => {
+            clearInterval(testimonialInterval);
+            showTestimonial(currentTestimonialIndex - 1);
+            startTestimonialInterval();
+        });
+
+        nextTestimonialBtn.addEventListener('click', () => {
+            clearInterval(testimonialInterval);
+            showTestimonial(currentTestimonialIndex + 1);
+            startTestimonialInterval();
+        });
+
+        // Adjust testimonial track height based on tallest slide
+        function setTestimonialTrackHeight() {
+            const track = document.querySelector('.testimonial-track');
+            let maxHeight = 0;
+            testimonialSlides.forEach(slide => {
+                slide.style.position = 'static';
+                slide.style.visibility = 'visible';
+                slide.style.opacity = '1';
+                const height = slide.offsetHeight;
+                maxHeight = Math.max(maxHeight, height);
+                slide.style.position = '';
+                slide.style.visibility = '';
+                slide.style.opacity = '';
+            });
+            track.style.minHeight = `${maxHeight}px`;
+        }
+
+        window.addEventListener('load', () => {
+            setTestimonialTrackHeight();
+            showTestimonial(0);
+            startTestimonialInterval();
+            window.addEventListener('resize', setTestimonialTrackHeight);
+        });
+    </script>
 </body>
+
 </html>

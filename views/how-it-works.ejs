@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>How SAFEHer Works</title>
@@ -9,208 +10,757 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary-color: #1a5276;
-      --secondary-color: #2980b9;
-      --accent-color: #e74c3c;
-      --light-color: #f8f9fa;
-      --dark-color: #2c3e50;
+      --primary: #ff4081;
+      --primary-dark: #c60055;
+      --secondary: #5c6bc0;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --success: #28a745;
+      --text: #333;
+      --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
-    
-    body {
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--light-color);
-      color: #333;
     }
-    
+
+    body {
+      color: var(--text);
+      background-color: #fff;
+      overflow-x: hidden;
+    }
+
     /* Header Styles */
-    .safety-header {
-      background-color: white;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      padding: 15px 0;
+    header {
+      background-color: #fff;
+      box-shadow: var(--shadow);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.3s ease;
     }
-    
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+
+    header.scrolled {
+      padding: 10px 0;
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+
+    .container {
+      width: 100%;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
     }
-    
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
     .logo {
-      font-weight: 700;
-      color: var(--primary-color);
-      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
     }
-    
+
+    .logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--primary);
+    }
+
     .logo i {
+      color: var(--primary);
+      font-size: 30px;
       margin-right: 10px;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    
-    .header-buttons .btn {
-      margin-left: 10px;
-      border-radius: 4px;
-      font-weight: 500;
-      padding: 8px 16px;
+
+    .logo:hover i {
+      transform: rotate(20deg) scale(1.1);
     }
-    
-    /* Hero Section */
-    .works-hero {
-      background: linear-gradient(135deg, rgba(26, 82, 118, 0.9) 0%, rgba(41, 128, 185, 0.8) 100%);
-      color: white;
-      padding: 5rem 0;
-      text-align: center;
-    }
-    
-    .works-hero h1 {
+
+    .logo h1 {
+      font-size: 24px;
       font-weight: 700;
-      font-size: 2.8rem;
-      margin-bottom: 1.5rem;
+      color: var(--primary);
     }
-    
-    .works-hero p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-      max-width: 700px;
-      margin: 0 auto 2rem;
+
+    .logo span {
+      color: var(--secondary);
     }
-    
-    /* Steps Section */
-    .works-steps {
-      max-width: 1200px;
-      margin: 4rem auto;
-      padding: 0 20px;
-    }
-    
-    .step-container {
+
+    .nav-links {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-top: 3rem;
+      list-style: none;
     }
-    
-    .step-card {
-      flex: 0 0 calc(33.333% - 30px);
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      padding: 30px;
-      margin-bottom: 30px;
-      text-align: center;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0,0,0,0.05);
+
+    .nav-links li {
+      margin-left: 30px;
     }
-    
-    .step-number {
-      width: 60px;
-      height: 60px;
-      background-color: var(--primary-color);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 1.5rem;
-      margin: 0 auto 1.5rem;
-    }
-    
-    .step-card h3 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-    
-    /* Video Section */
-    .demo-section {
-      background-color: rgba(26, 82, 118, 0.05);
-      padding: 4rem 0;
-      text-align: center;
-    }
-    
-    .demo-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    .video-placeholder {
-      background-color: #e9ecef;
-      border-radius: 8px;
-      height: 450px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #6c757d;
-      margin-top: 2rem;
-    }
-    
-    /* CTA Section */
-    .works-cta {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 4rem 0;
-      text-align: center;
-    }
-    
-    .works-cta h2 {
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-    }
-    
-    .btn-cta {
-      background-color: var(--accent-color);
-      border: none;
-      padding: 12px 30px;
-      font-size: 1.1rem;
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
       font-weight: 500;
-      border-radius: 4px;
-      transition: all 0.3s ease;
+      transition: all 0.3s;
+      position: relative;
     }
-    
-    .btn-cta:hover {
-      background-color: #c0392b;
+
+    .nav-links a:hover {
+      color: var(--primary);
       transform: translateY(-2px);
     }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 992px) {
-      .step-card {
-        flex: 0 0 calc(50% - 20px);
+
+    .nav-links .cta-btn {
+      background-color: var(--primary);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      transition: all 0.3s;
+    }
+
+    .nav-links .cta-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links .login-btn {
+      color: var(--primary);
+      padding: 8px 18px;
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      transition: all 0.3s;
+    }
+
+    .nav-links .login-btn:hover {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--text);
+    }
+
+    /* Hero Section */
+    .works-hero {
+      background: linear-gradient(135deg, rgba(255, 64, 129, 0.9) 0%, rgba(92, 107, 192, 0.9) 100%);
+      color: white;
+      padding: 160px 0 100px;
+      text-align: center;
+    }
+
+    .works-hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .works-hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+    }
+
+    .works-hero .btn {
+      display: inline-block;
+      padding: 15px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background-color: white;
+      color: var(--primary);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards;
+    }
+
+    .works-hero .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .works-hero .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .works-hero .btn:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Steps Section */
+    .steps-section {
+      padding: 100px 0;
+      background: linear-gradient(135deg, rgba(255, 64, 129, 0.03) 0%, rgba(92, 107, 192, 0.03) 100%);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .section-title h3 {
+      font-size: 36px;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .section-title p {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .steps-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .step-card {
+      flex: 1;
+      min-width: 250px;
+      max-width: 350px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: linear-gradient(to bottom, rgba(255, 64, 129, 0.05), transparent);
+      transition: height 0.5s ease;
+      z-index: -1;
+    }
+
+    .step-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.8s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .step-card:hover::before {
+      height: 100%;
+    }
+
+    .step-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .step-number {
+      width: 70px;
+      height: 70px;
+      border: 3px solid var(--primary);
+      background: white;
+      color: var(--primary);
+      font-size: 28px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 5px 15px rgba(255, 64, 129, 0.1);
+    }
+
+    .step-card:hover .step-number {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    .step-icon {
+      font-size: 40px;
+      color: var(--primary);
+      margin: 20px 0;
+      transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .step-card:hover .step-icon {
+      transform: rotate(360deg) scale(1.1);
+      color: var(--primary-dark);
+    }
+
+    .step-card h4 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--text);
+    }
+
+    .step-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Features Walkthrough */
+    .walkthrough-section {
+      padding: 100px 0;
+      background-color: white;
+    }
+
+    .walkthrough-box {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 80px;
+      opacity: 0;
+      transform: translateY(30px);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      position: relative;
+      padding: 20px;
+      background: white;
+    }
+
+    .walkthrough-image {
+      flex: 1;
+      max-width: 500px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+      border: 3px solid #fff;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      transform: rotate(-1deg);
+      transition: all 0.5s ease;
+    }
+
+    .walkthrough-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .walkthrough-image:hover img {
+      transform: scale(1.03);
+    }
+
+    .walkthrough-image:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .walkthrough-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom right, rgba(255, 64, 129, 0.1), rgba(92, 107, 192, 0.1));
+      pointer-events: none;
+    }
+
+    .walkthrough-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .walkthrough-content h3 {
+      font-size: 28px;
+      color: var(--primary);
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .walkthrough-content h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    .walkthrough-content p {
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    .feature-list li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .feature-list li i {
+      background-color: rgba(255, 64, 129, 0.1);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-list li:hover i {
+      background-color: var(--primary);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(255, 64, 129, 0.9) 0%, rgba(92, 107, 192, 0.9) 100%);
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background-color: white;
+      color: var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .cta-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
-    
-    @media (max-width: 768px) {
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .animate {
+      opacity: 0;
+    }
+
+    .animated {
+      animation-fill-mode: both;
+    }
+
+    .fadeInUp {
+      animation-name: fadeInUp;
+    }
+
+    .slideInLeft {
+      animation-name: slideInLeft;
+    }
+
+    .slideInRight {
+      animation-name: slideInRight;
+    }
+
+    /* Responsive design */
+    @media (max-width: 992px) {
+      .walkthrough-box {
+        flex-direction: column;
+      }
+
+      .walkthrough-image {
+        max-width: 100%;
+      }
+
       .works-hero h1 {
-        font-size: 2rem;
+        font-size: 36px;
       }
-      
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 1001;
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+      }
+
+      .nav-links li {
+        margin: 15px 0;
+      }
+
+      .hamburger {
+        display: block;
+        align-self: flex-end;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: rgba(255, 64, 129, 0.1);
+      }
+
+      .works-hero h1 {
+        font-size: 28px;
+        padding: 0 10px;
+      }
+
       .works-hero p {
-        font-size: 1rem;
+        font-size: 16px;
+        padding: 0 15px;
+        margin-bottom: 25px;
       }
-      
+
+      .section-title h3 {
+        font-size: 24px;
+      }
+
       .step-card {
-        flex: 0 0 100%;
+        min-width: 100%;
+        padding: 20px;
       }
-      
-      .video-placeholder {
-        height: 300px;
+
+      .step-number {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+      }
+
+      .walkthrough-content h3 {
+        font-size: 22px;
+      }
+
+      .nav-links.active {
+        padding-bottom: 15px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .works-hero h1 {
+        font-size: 26px;
+      }
+
+      .section-title h3 {
+        font-size: 28px;
+      }
+
+      .mobile-sticky-cta {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 10px 15px;
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+        z-index: 99;
+        display: flex;
+        justify-content: center;
+      }
+
+      .mobile-sticky-cta .cta-btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      body {
+        padding-bottom: 70px;
       }
     }
   </style>
 </head>
+
 <body>
   <!-- Header -->
-  <header class="safety-header">
-    <div class="header-container">
-      <div class="logo">
-        <i class="fas fa-shield-alt"></i>SAFEHer
-      </div>
-      <div class="header-buttons">
-        <a href="/home" class="btn btn-outline-primary">Home</a>
-        <a href="/logout" class="btn btn-primary">Logout</a>
-      </div>
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo">
+          <a href="/home">
+            <i class="fas fa-shield-alt"></i>
+            <h1>Safe<span>Her</span></h1>
+          </a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="/home">Home</a></li>
+          <li><a href="/features">Features</a></li>
+          <li><a href="/how-it-works">How It Works</a></li>
+          <li><a href="/login" class="login-btn">Login</a></li>
+          <li><a href="/signup" class="cta-btn">Sign Up</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+      </nav>
     </div>
   </header>
 
@@ -218,65 +768,236 @@
   <section class="works-hero">
     <div class="container">
       <h1>How SAFEHer Protects You</h1>
-      <p>Our simple three-step process ensures you're always protected, with advanced safety features working seamlessly in the background.</p>
-      <a href="/signup" class="btn btn-light btn-lg">Get Started</a>
+      <p>Our comprehensive safety system ensures you're always protected, with advanced AI-driven features working
+        seamlessly to keep you safe.</p>
+      <a href="/signup" class="btn btn-lg">Get Started Today</a>
     </div>
   </section>
 
   <!-- Steps Section -->
-  <div class="works-steps">
-    <div class="container text-center">
-      <h2 class="mb-5" style="color: var(--primary-color); font-weight: 700;">Simple Setup, Powerful Protection</h2>
-      
-      <div class="step-container">
-        <!-- Step 1 -->
-        <div class="step-card">
+  <section class="steps-section">
+    <div class="container">
+      <div class="section-title">
+        <h3>Simple Steps to Stay Safe</h3>
+        <p>Setting up your personal safety system is quick and easy with our intuitive app.</p>
+      </div>
+
+      <div class="steps-container">
+        <div class="step-card" id="step-1">
           <div class="step-number">1</div>
-          <h3>Create Your Account</h3>
-          <p>Sign up in seconds and add your emergency contacts who will be alerted if you need help.</p>
+          <div class="step-icon">
+            <i class="fas fa-download"></i>
+          </div>
+          <h4>Download & Register</h4>
+          <p>Download the app and create your account with basic information to get started. The process takes less than
+            2 minutes.</p>
         </div>
-        
-        <!-- Step 2 -->
-        <div class="step-card">
+
+        <div class="step-card" id="step-2">
           <div class="step-number">2</div>
-          <h3>Enable Safety Features</h3>
-          <p>Turn on location sharing and voice detection to activate all protection capabilities.</p>
+          <div class="step-icon">
+            <i class="fas fa-user-friends"></i>
+          </div>
+          <h4>Add Emergency Contacts</h4>
+          <p>Add trusted emergency contacts who will receive immediate alerts with your location when you need help.</p>
         </div>
-        
-        <!-- Step 3 -->
-        <div class="step-card">
+
+        <div class="step-card" id="step-3">
           <div class="step-number">3</div>
-          <h3>Go About Your Day</h3>
-          <p>Our system works automatically to keep you safe, alerting you and your contacts if danger is detected.</p>
+          <div class="step-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h4>Stay Protected</h4>
+          <p>Activate safety features like voice detection, shake alerts, or one-touch SOS to ensure you're always
+            protected.</p>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Video Demo Section -->
-  <section class="demo-section">
-    <div class="demo-container">
-      <h2 style="color: var(--primary-color); font-weight: 700;">See SAFEHer in Action</h2>
-      <p class="mb-4">Watch how our safety features work together to protect you in real-world situations.</p>
-      
-      <div class="video-placeholder">
-        <i class="fas fa-play-circle fa-4x"></i>
+  <!-- Features Walkthrough -->
+  <section class="walkthrough-section">
+    <div class="container">
+      <div class="section-title">
+        <h3>Safety Features that Keep You Protected</h3>
+        <p>See how our comprehensive safety system works to keep you safe in any situation.</p>
       </div>
-      
-      <a href="/features" class="btn btn-outline-primary mt-4">Explore All Features</a>
+
+      <!-- Walkthrough Item 1 -->
+      <div class="walkthrough-box" id="walkthrough-1">
+        <div class="walkthrough-image">
+          <img
+            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
+            alt="Voice Activated SOS">
+        </div>
+        <div class="walkthrough-content">
+          <h3>Voice Activated Emergency</h3>
+          <p>When you can't reach your phone, your voice is enough to trigger help. Our advanced AI recognizes distress
+            keywords and activates emergency protocols automatically.</p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check-circle"></i> Works even when your phone is locked</li>
+            <li><i class="fas fa-check-circle"></i> Customizable trigger words for different situations</li>
+            <li><i class="fas fa-check-circle"></i> Distinguishes between normal conversation and distress</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Walkthrough Item 2 -->
+      <div class="walkthrough-box" id="walkthrough-2">
+        <div class="walkthrough-content">
+          <h3>Shake For Emergency</h3>
+          <p>Sometimes you need to trigger help discreetly. Simply shaking your phone in a specific pattern activates
+            emergency mode, sending your location to trusted contacts.</p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check-circle"></i> Works with your phone in your pocket or bag</li>
+            <li><i class="fas fa-check-circle"></i> Adjustable sensitivity to prevent false alarms</li>
+            <li><i class="fas fa-check-circle"></i> Silent activation for discreet emergency alerts</li>
+          </ul>
+        </div>
+        <div class="walkthrough-image">
+          <img
+            src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
+            alt="Shake Detection">
+        </div>
+      </div>
+
+      <!-- Walkthrough Item 3 -->
+      <div class="walkthrough-box" id="walkthrough-3">
+        <div class="walkthrough-image">
+          <img
+            src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
+            alt="Safe Route Planning">
+        </div>
+        <div class="walkthrough-content">
+          <h3>AI-Powered Safe Routes</h3>
+          <p>Our system analyzes crime data, lighting conditions, and pedestrian activity to suggest the safest routes
+            to your destination, helping you avoid potentially dangerous areas.</p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check-circle"></i> Real-time route adjustments based on safety data</li>
+            <li><i class="fas fa-check-circle"></i> Prefer well-lit, populated streets for walking</li>
+            <li><i class="fas fa-check-circle"></i> Safety scores for different route options</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="works-cta">
+  <section class="cta-section">
     <div class="container">
-      <h2>Ready to Feel Safe Wherever You Go?</h2>
-      <p class="mb-4">Join our community of protected women today.</p>
-      <a href="/signup" class="btn btn-cta">Start Your Protection Now</a>
+      <h2>Ready to Feel Safer Everywhere You Go?</h2>
+      <p>Join thousands of women who trust SafeHer for their personal safety and peace of mind.</p>
+      <div class="cta-buttons">
+        <a href="/signup" class="cta-btn">Create Your Account</a>
+        <a href="/features" class="cta-btn">See All Features</a>
+      </div>
     </div>
   </section>
+
+  <!-- Mobile Sticky CTA -->
+  <div class="mobile-sticky-cta d-md-none">
+    <a href="/signup" class="cta-btn">Get Started Now</a>
+  </div>
+
+  <script>
+    // Navigation toggle
+    document.getElementById('hamburger').addEventListener('click', function () {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.classList.toggle('active');
+
+      // Change icon based on state
+      const icon = this.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.className = 'fas fa-times';
+      } else {
+        icon.className = 'fas fa-bars';
+      }
+    });
+
+    // Sticky header
+    window.addEventListener('scroll', function () {
+      const header = document.querySelector('header');
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Enhanced Animation on scroll
+    const stepCards = document.querySelectorAll('.step-card');
+    const walkthroughBoxes = document.querySelectorAll('.walkthrough-box');
+
+    // Function to check if elements are in viewport and animate them
+    function checkElementsInView() {
+      const triggerBottom = window.innerHeight * 0.8;
+
+      stepCards.forEach((card, index) => {
+        const cardTop = card.getBoundingClientRect().top;
+
+        if (cardTop < triggerBottom) {
+          setTimeout(() => {
+            if (index === 0) {
+              card.style.animation = 'slideInLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+            } else if (index === 1) {
+              card.style.animation = 'fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+            } else {
+              card.style.animation = 'slideInRight 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+            }
+          }, index * 200);
+        }
+      });
+
+      walkthroughBoxes.forEach((box, index) => {
+        const boxTop = box.getBoundingClientRect().top;
+
+        if (boxTop < triggerBottom) {
+          setTimeout(() => {
+            if (index % 2 === 0) {
+              box.style.animation = 'fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+            } else {
+              box.style.animation = 'fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+            }
+          }, index * 300);
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkElementsInView);
+    window.addEventListener('resize', checkElementsInView);
+
+    // Check if elements are in view on page load
+    window.addEventListener('load', function () {
+      setTimeout(checkElementsInView, 100);
+    });
+
+    // Card hover effects with slower animations
+    stepCards.forEach(card => {
+      card.addEventListener('mouseenter', function () {
+        const icon = this.querySelector('.step-icon');
+        icon.style.transition = 'all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        icon.style.transform = 'rotate(360deg) scale(1.1)';
+      });
+
+      card.addEventListener('mouseleave', function () {
+        const icon = this.querySelector('.step-icon');
+        icon.style.transition = 'all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        icon.style.transform = 'rotate(0deg) scale(1)';
+      });
+    });
+
+    // Add active state to current page link
+    document.addEventListener('DOMContentLoaded', function () {
+      const currentPath = window.location.pathname;
+      const navLinks = document.querySelectorAll('.nav-links a');
+
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+          link.style.color = 'var(--primary)';
+          link.style.fontWeight = '700';
+        }
+      });
+    });
+  </script>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
