@@ -816,6 +816,115 @@
       width: 100%;
       margin-top: 20px;
     }
+
+    /* Safety Indicator Styles */
+    #safety-indicator {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #safety-indicator.safe {
+      background-color: #2ecc71;
+    }
+
+    #safety-indicator.caution {
+      background-color: #f39c12;
+    }
+
+    #safety-indicator.unsafe {
+      background-color: #e74c3c;
+    }
+
+    #safety-indicator.loading {
+      background-color: #3498db;
+    }
+
+    #safety-indicator.error {
+      background-color: #95a5a6;
+    }
+
+    .safety-rating {
+      font-size: 18px;
+    }
+
+    .safety-judgement {
+      font-size: 14px;
+    }
+
+    .pulse {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: white;
+      animation: pulse 1.5s infinite;
+      margin-right: 5px;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+      }
+    }
+
+    .safety-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #e74c3c;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1100;
+      max-width: 300px;
+      animation: slide-in 0.5s;
+    }
+
+    .notification-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    @keyframes slide-in {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 
@@ -883,6 +992,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Safety Indicator -->
+  <div id="safety-indicator" class="loading">
+    <span class="pulse"></span> Evaluating area safety...
   </div>
 
   <!-- JavaScript Section -->
@@ -1775,6 +1889,10 @@
       initUI();
       setupBackToTop();
 
+      // Remove these lines since safety-monitor.js will handle safety evaluation
+      // setTimeout(evaluateLocation, 2000);
+      // safetyEvaluationTimer = setInterval(evaluateLocation, 250000);
+
       // Enhanced shakejs initialization
       // Wait a moment to ensure device is ready
       setTimeout(setupShakeDetection, 2000);
@@ -1807,6 +1925,36 @@
         document.body.appendChild(shakeScript);
       } else {
         console.log("Shake.js loaded successfully");
+      }
+    });
+  </script>
+
+  <!-- Safety Monitoring Script -->
+  <script>
+    // Pass server config to client
+    window.safetyRefreshInterval = <%= typeof safetyRefreshInterval !== 'undefined' ? safetyRefreshInterval : 300000 %>;
+    window.safetyRetryInterval = <%= typeof safetyRetryInterval !== 'undefined' ? safetyRetryInterval : 30000 %>;
+
+    // Remove any popup safety indicators
+    document.addEventListener('DOMContentLoaded', function () {
+      const safetyIndicator = document.getElementById('safety-indicator');
+      if (safetyIndicator && safetyIndicator.parentNode) {
+        safetyIndicator.parentNode.removeChild(safetyIndicator);
+      }
+    });
+  </script>
+  <script src="/js/safety-monitor.js"></script>
+
+  <!-- Remove redundant safety indicator - using just the one in the main content -->
+  <script>
+    // Fix potential issue with duplicate safety indicators
+    document.addEventListener('DOMContentLoaded', () => {
+      const indicators = document.querySelectorAll('#safety-indicator');
+      if (indicators.length > 1) {
+        // Keep only the first one
+        for (let i = 1; i < indicators.length; i++) {
+          indicators[i].remove();
+        }
       }
     });
   </script>

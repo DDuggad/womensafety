@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>How SAFEHer Works</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works - SAFEHer</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
@@ -13,870 +14,715 @@
       --primary: #ff4081;
       --primary-dark: #c60055;
       --secondary: #5c6bc0;
-      --light: #f8f9fa;
-      --dark: #343a40;
+      --text-dark: #333;
+      --text-light: #f8f9fa;
       --success: #28a745;
-      --text: #333;
-      --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --danger: #dc3545;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      color: var(--text);
-      background-color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
       overflow-x: hidden;
     }
 
-    /* Header Styles */
-    header {
-      background-color: #fff;
-      box-shadow: var(--shadow);
-      position: fixed;
-      width: 100%;
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    header.scrolled {
-      padding: 10px 0;
-      background-color: rgba(255, 255, 255, 0.95);
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
+    /* Navbar Styles */
     .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
+      background-color: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      padding: 15px 0;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo a {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: var(--primary);
-    }
-
-    .logo i {
-      color: var(--primary);
-      font-size: 30px;
-      margin-right: 10px;
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .logo:hover i {
-      transform: rotate(20deg) scale(1.1);
-    }
-
-    .logo h1 {
-      font-size: 24px;
+    .navbar-brand {
       font-weight: 700;
       color: var(--primary);
-    }
-
-    .logo span {
-      color: var(--secondary);
-    }
-
-    .nav-links {
+      font-size: 1.5rem;
       display: flex;
-      list-style: none;
+      align-items: center;
     }
 
-    .nav-links li {
-      margin-left: 30px;
+    .navbar-brand i {
+      margin-right: 10px;
+      font-size: 26px;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text);
+    .nav-link {
       font-weight: 500;
-      transition: all 0.3s;
-      position: relative;
+      color: var(--text-dark);
+      margin: 0 10px;
+      transition: color 0.3s;
     }
 
-    .nav-links a:hover {
+    .nav-link:hover {
       color: var(--primary);
-      transform: translateY(-2px);
     }
 
-    .nav-links .cta-btn {
-      background-color: var(--primary);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 30px;
-      transition: all 0.3s;
-    }
-
-    .nav-links .cta-btn:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-3px);
-      box-shadow: var(--shadow);
-    }
-
-    .nav-links .login-btn {
+    .nav-link.active {
       color: var(--primary);
-      padding: 8px 18px;
+      font-weight: 600;
+    }
+
+    /* Fix for navbar buttons to stay in one line */
+    .navbar-nav.auth-buttons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-outline-primary {
+      color: var(--primary);
       border: 2px solid var(--primary);
       border-radius: 30px;
+      font-weight: 500;
+      padding: 8px 20px;
       transition: all 0.3s;
     }
 
-    .nav-links .login-btn:hover {
+    .btn-outline-primary:hover {
       background-color: var(--primary);
       color: white;
-      transform: translateY(-3px);
-      box-shadow: var(--shadow);
     }
 
-    .hamburger {
-      display: none;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 24px;
-      color: var(--text);
+    .btn-primary {
+      background-color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      font-weight: 500;
+      padding: 8px 20px;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
     }
 
     /* Hero Section */
-    .works-hero {
-      background: linear-gradient(135deg, rgba(255, 64, 129, 0.9) 0%, rgba(92, 107, 192, 0.9) 100%);
-      color: white;
-      padding: 160px 0 100px;
-      text-align: center;
-    }
-
-    .works-hero h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-      line-height: 1.2;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-
-    .works-hero p {
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto 30px;
-      line-height: 1.6;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
-    }
-
-    .works-hero .btn {
-      display: inline-block;
-      padding: 15px 30px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      background-color: white;
-      color: var(--primary);
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards;
-    }
-
-    .works-hero .btn::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-
-    .works-hero .btn:hover::before {
-      width: 300px;
-      height: 300px;
-    }
-
-    .works-hero .btn:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Steps Section */
-    .steps-section {
-      padding: 100px 0;
-      background: linear-gradient(135deg, rgba(255, 64, 129, 0.03) 0%, rgba(92, 107, 192, 0.03) 100%);
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-
-    .section-title h3 {
-      font-size: 36px;
-      color: var(--text);
-      margin-bottom: 20px;
-    }
-
-    .section-title p {
-      color: #666;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .steps-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 50px;
-    }
-
-    .step-card {
-      flex: 1;
-      min-width: 250px;
-      max-width: 350px;
-      background-color: white;
-      border-radius: 10px;
-      padding: 30px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .step-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 0;
-      background: linear-gradient(to bottom, rgba(255, 64, 129, 0.05), transparent);
-      transition: height 0.5s ease;
-      z-index: -1;
-    }
-
-    .step-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--primary);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.8s ease;
-    }
-
-    .step-card:hover {
-      transform: translateY(-15px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .step-card:hover::before {
-      height: 100%;
-    }
-
-    .step-card:hover::after {
-      transform: scaleX(1);
-    }
-
-    .step-number {
-      width: 70px;
-      height: 70px;
-      border: 3px solid var(--primary);
-      background: white;
-      color: var(--primary);
-      font-size: 28px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      margin: 0 auto 20px;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 5px 15px rgba(255, 64, 129, 0.1);
-    }
-
-    .step-card:hover .step-number {
-      background: var(--primary);
-      color: white;
-      transform: scale(1.1) rotate(10deg);
-    }
-
-    .step-icon {
-      font-size: 40px;
-      color: var(--primary);
-      margin: 20px 0;
-      transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .step-card:hover .step-icon {
-      transform: rotate(360deg) scale(1.1);
-      color: var(--primary-dark);
-    }
-
-    .step-card h4 {
-      font-size: 20px;
-      margin-bottom: 15px;
-      color: var(--text);
-    }
-
-    .step-card p {
-      color: #666;
-      line-height: 1.6;
-    }
-
-    /* Features Walkthrough */
-    .walkthrough-section {
-      padding: 100px 0;
-      background-color: white;
-    }
-
-    .walkthrough-box {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      margin-bottom: 80px;
-      opacity: 0;
-      transform: translateY(30px);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      position: relative;
-      padding: 20px;
-      background: white;
-    }
-
-    .walkthrough-image {
-      flex: 1;
-      max-width: 500px;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      position: relative;
-      border: 3px solid #fff;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-      transform: rotate(-1deg);
-      transition: all 0.5s ease;
-    }
-
-    .walkthrough-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .walkthrough-image:hover img {
-      transform: scale(1.03);
-    }
-
-    .walkthrough-image:hover {
-      transform: rotate(0deg) scale(1.02);
-    }
-
-    .walkthrough-image::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom right, rgba(255, 64, 129, 0.1), rgba(92, 107, 192, 0.1));
-      pointer-events: none;
-    }
-
-    .walkthrough-content {
-      flex: 1;
-      padding: 20px;
-    }
-
-    .walkthrough-content h3 {
-      font-size: 28px;
-      color: var(--primary);
-      margin-bottom: 20px;
-      position: relative;
-      padding-bottom: 15px;
-    }
-
-    .walkthrough-content h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 80px;
-      height: 3px;
-      background: var(--primary);
-      border-radius: 3px;
-    }
-
-    .walkthrough-content p {
-      color: #666;
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .feature-list {
-      list-style: none;
-      margin: 20px 0;
-    }
-
-    .feature-list li {
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-    }
-
-    .feature-list li i {
-      background-color: rgba(255, 64, 129, 0.1);
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 15px;
-      transition: all 0.3s ease;
-    }
-
-    .feature-list li:hover i {
-      background-color: var(--primary);
-      color: white;
-      transform: scale(1.1);
-    }
-
-    /* CTA Section */
-    .cta-section {
-      background: linear-gradient(135deg, rgba(255, 64, 129, 0.9) 0%, rgba(92, 107, 192, 0.9) 100%);
-      color: white;
+    .hero-section {
+      background: linear-gradient(135deg, rgba(255, 64, 129, 0.1) 0%, rgba(92, 107, 192, 0.1) 100%);
       padding: 80px 0;
       text-align: center;
     }
 
-    .cta-section h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
+    .hero-title {
+      font-size: 2.5rem;
       font-weight: 700;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-
-    .cta-section p {
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto 30px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
-    }
-
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards;
-    }
-
-    .cta-btn {
-      display: inline-block;
-      padding: 15px 30px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      background-color: white;
       color: var(--primary);
-      position: relative;
-      overflow: hidden;
+      margin-bottom: 20px;
     }
 
-    .cta-btn::before {
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: var(--text-dark);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* How It Works Section */
+    .how-works-section {
+      padding: 80px 0;
+      background-color: white;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .section-title:after {
       content: '';
       position: absolute;
-      top: 50%;
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary);
+      bottom: -10px;
       left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .step-card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      margin-bottom: 30px;
+      transition: all 0.3s;
+      border-left: 4px solid var(--primary);
+      height: 100%;
+    }
+
+    .step-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .step-icon {
+      width: 70px;
+      height: 70px;
+      background-color: rgba(255, 64, 129, 0.1);
       border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
     }
 
-    .cta-btn:hover::before {
-      width: 300px;
-      height: 300px;
+    .step-icon i {
+      font-size: 30px;
+      color: var(--primary);
     }
 
-    .cta-btn:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    .step-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
     }
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Features Section */
+    .features-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, rgba(255, 64, 129, 0.05) 0%, rgba(92, 107, 192, 0.05) 100%);
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
+    .feature-card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      padding: 25px;
+      margin-bottom: 30px;
+      transition: all 0.3s;
+      text-align: center;
+      height: 100%;
     }
 
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
 
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(255, 64, 129, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
     }
 
-    .animate {
-      opacity: 0;
+    .feature-icon i {
+      font-size: 25px;
+      color: var(--primary);
     }
 
-    .animated {
-      animation-fill-mode: both;
+    .feature-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
     }
 
-    .fadeInUp {
-      animation-name: fadeInUp;
+    /* Testimonial Section */
+    .testimonial-section {
+      padding: 80px 0;
+      background-color: white;
+      text-align: center;
     }
 
-    .slideInLeft {
-      animation-name: slideInLeft;
+    .testimonial-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
     }
 
-    .slideInRight {
-      animation-name: slideInRight;
+    .testimonial-card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      max-width: 350px;
+      transition: all 0.3s;
+      text-align: center;
     }
 
-    /* Responsive design */
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .testimonial-img {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid var(--primary);
+    }
+
+    .testimonial-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-card h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+    }
+
+    .testimonial-card p.role {
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+
+    .testimonial-card p.quote {
+      font-style: italic;
+      color: var(--text-dark);
+    }
+
+    .testimonial-card .rating {
+      color: #ffc107;
+      margin: 15px 0;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 60px 0 30px;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-logo i {
+      margin-right: 10px;
+      font-size: 24px;
+      color: var(--primary);
+    }
+
+    .footer-text {
+      margin-bottom: 20px;
+      max-width: 300px;
+    }
+
+    .footer-links h5 {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      transition: all 0.3s;
+    }
+
+    .social-icons a:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .cta-subtitle {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-light {
+      background-color: white;
+      color: var(--primary);
+      border-radius: 30px;
+      font-weight: 600;
+      padding: 12px 30px;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-light:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Media Queries */
     @media (max-width: 992px) {
-      .walkthrough-box {
-        flex-direction: column;
+      .hero-title {
+        font-size: 2.2rem;
       }
 
-      .walkthrough-image {
-        max-width: 100%;
-      }
-
-      .works-hero h1 {
-        font-size: 36px;
+      .section-title {
+        font-size: 2rem;
       }
     }
 
     @media (max-width: 768px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 0;
+      .hero-section {
+        padding: 60px 0;
       }
 
-      .nav-links {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: white;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 0;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        transform: translateY(-150%);
-        transition: transform 0.3s ease;
-        z-index: 1001;
+      .hero-title {
+        font-size: 2rem;
       }
 
-      .nav-links.active {
-        transform: translateY(0);
+      .hero-subtitle {
+        font-size: 1.1rem;
       }
 
-      .nav-links li {
-        margin: 15px 0;
+      .section-title {
+        font-size: 1.8rem;
       }
 
-      .hamburger {
-        display: block;
-        align-self: flex-end;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        background: rgba(255, 64, 129, 0.1);
+      .step-title,
+      .feature-title {
+        font-size: 1.1rem;
       }
 
-      .works-hero h1 {
-        font-size: 28px;
-        padding: 0 10px;
-      }
-
-      .works-hero p {
-        font-size: 16px;
-        padding: 0 15px;
-        margin-bottom: 25px;
-      }
-
-      .section-title h3 {
-        font-size: 24px;
-      }
-
-      .step-card {
-        min-width: 100%;
+      .testimonial-card {
         padding: 20px;
       }
 
-      .step-number {
-        width: 60px;
-        height: 60px;
-        font-size: 24px;
-      }
-
-      .walkthrough-content h3 {
-        font-size: 22px;
-      }
-
-      .nav-links.active {
-        padding-bottom: 15px;
+      /* Fix for mobile navbar */
+      .navbar-nav.auth-buttons {
+        flex-direction: row;
+        margin-top: 15px;
+        justify-content: center;
       }
     }
 
     @media (max-width: 576px) {
-      .works-hero h1 {
-        font-size: 26px;
+      .hero-title {
+        font-size: 1.8rem;
       }
 
-      .section-title h3 {
-        font-size: 28px;
-      }
-
-      .mobile-sticky-cta {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: white;
-        padding: 10px 15px;
-        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
-        z-index: 99;
-        display: flex;
-        justify-content: center;
-      }
-
-      .mobile-sticky-cta .cta-btn {
-        width: 100%;
-        max-width: 280px;
-      }
-
-      body {
-        padding-bottom: 70px;
+      .section-title {
+        font-size: 1.6rem;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Header -->
-  <header>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      <nav class="navbar">
-        <div class="logo">
-          <a href="/home">
-            <i class="fas fa-shield-alt"></i>
-            <h1>Safe<span>Her</span></h1>
-          </a>
-        </div>
-        <ul class="nav-links">
-          <li><a href="/home">Home</a></li>
-          <li><a href="/features">Features</a></li>
-          <li><a href="/how-it-works">How It Works</a></li>
-          <li><a href="/login" class="login-btn">Login</a></li>
-          <li><a href="/signup" class="cta-btn">Sign Up</a></li>
+      <a class="navbar-brand" href="/home">
+        <i class="fas fa-shield-alt"></i> SAFEHer
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/how-it-works">How It Works</a>
+          </li>
         </ul>
-        <button class="hamburger" id="hamburger">
-          <i class="fas fa-bars"></i>
-        </button>
-      </nav>
+        <ul class="navbar-nav auth-buttons">
+          <li class="nav-item">
+            <a class="btn btn-outline-primary" href="/signup">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </header>
+  </nav>
 
   <!-- Hero Section -->
-  <section class="works-hero">
+  <section class="hero-section">
     <div class="container">
-      <h1>How SAFEHer Protects You</h1>
-      <p>Our comprehensive safety system ensures you're always protected, with advanced AI-driven features working
-        seamlessly to keep you safe.</p>
-      <a href="/signup" class="btn btn-lg">Get Started Today</a>
+      <h1 class="hero-title">How SAFEHer Works</h1>
+      <p class="hero-subtitle">Discover how our app empowers women with safety features, real-time tracking, and
+        emergency response mechanisms.</p>
     </div>
   </section>
 
-  <!-- Steps Section -->
-  <section class="steps-section">
+  <!-- How It Works Section -->
+  <section class="how-works-section">
     <div class="container">
-      <div class="section-title">
-        <h3>Simple Steps to Stay Safe</h3>
-        <p>Setting up your personal safety system is quick and easy with our intuitive app.</p>
+      <h2 class="section-title">Simple Steps to Stay Safe</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="step-card">
+            <div class="step-icon">
+              <i class="fas fa-user-plus"></i>
+            </div>
+            <h3 class="step-title">1. Create Your Account</h3>
+            <p>Sign up with your details and add emergency contacts who will be alerted during emergencies.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="step-card">
+            <div class="step-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3 class="step-title">2. Enable Location Tracking</h3>
+            <p>Allow the app to access your location for real-time tracking and area safety analysis.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="step-card">
+            <div class="step-icon">
+              <i class="fas fa-route"></i>
+            </div>
+            <h3 class="step-title">3. Plan Safe Routes</h3>
+            <p>Use our AI-powered route planner to find the safest path to your destination with real-time safety
+              metrics.</p>
+          </div>
+        </div>
       </div>
-
-      <div class="steps-container">
-        <div class="step-card" id="step-1">
-          <div class="step-number">1</div>
-          <div class="step-icon">
-            <i class="fas fa-download"></i>
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="step-card">
+            <div class="step-icon">
+              <i class="fas fa-microphone"></i>
+            </div>
+            <h3 class="step-title">4. Activate Voice Detection</h3>
+            <p>Enable voice trigger detection that automatically sends alerts when you say specific trigger words like
+              "help".</p>
           </div>
-          <h4>Download & Register</h4>
-          <p>Download the app and create your account with basic information to get started. The process takes less than
-            2 minutes.</p>
         </div>
-
-        <div class="step-card" id="step-2">
-          <div class="step-number">2</div>
-          <div class="step-icon">
-            <i class="fas fa-user-friends"></i>
+        <div class="col-md-4">
+          <div class="step-card">
+            <div class="step-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="step-title">5. Use Emergency Button</h3>
+            <p>Press the panic button in threatening situations to immediately alert your emergency contacts with your
+              location.</p>
           </div>
-          <h4>Add Emergency Contacts</h4>
-          <p>Add trusted emergency contacts who will receive immediate alerts with your location when you need help.</p>
         </div>
-
-        <div class="step-card" id="step-3">
-          <div class="step-number">3</div>
-          <div class="step-icon">
-            <i class="fas fa-shield-alt"></i>
+        <div class="col-md-4">
+          <div class="step-card">
+            <div class="step-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3 class="step-title">6. Shake for Emergency</h3>
+            <p>In situations where you can't access the app screen, simply shake your device to trigger emergency
+              alerts.</p>
           </div>
-          <h4>Stay Protected</h4>
-          <p>Activate safety features like voice detection, shake alerts, or one-touch SOS to ensure you're always
-            protected.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Features Walkthrough -->
-  <section class="walkthrough-section">
+  <!-- Features Section -->
+  <section class="features-section">
     <div class="container">
-      <div class="section-title">
-        <h3>Safety Features that Keep You Protected</h3>
-        <p>See how our comprehensive safety system works to keep you safe in any situation.</p>
-      </div>
-
-      <!-- Walkthrough Item 1 -->
-      <div class="walkthrough-box" id="walkthrough-1">
-        <div class="walkthrough-image">
-          <img
-            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
-            alt="Voice Activated SOS">
+      <h2 class="section-title">Key Safety Features</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-robot"></i>
+            </div>
+            <h3 class="feature-title">AI Safety Analysis</h3>
+            <p>Our AI technology evaluates your location's safety level in real-time, providing proactive alerts in
+              potentially unsafe areas.</p>
+          </div>
         </div>
-        <div class="walkthrough-content">
-          <h3>Voice Activated Emergency</h3>
-          <p>When you can't reach your phone, your voice is enough to trigger help. Our advanced AI recognizes distress
-            keywords and activates emergency protocols automatically.</p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> Works even when your phone is locked</li>
-            <li><i class="fas fa-check-circle"></i> Customizable trigger words for different situations</li>
-            <li><i class="fas fa-check-circle"></i> Distinguishes between normal conversation and distress</li>
-          </ul>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-street-view"></i>
+            </div>
+            <h3 class="feature-title">Live Location Sharing</h3>
+            <p>Share your real-time location with trusted contacts so they can monitor your journey and ensure your
+              safety.</p>
+          </div>
         </div>
-      </div>
-
-      <!-- Walkthrough Item 2 -->
-      <div class="walkthrough-box" id="walkthrough-2">
-        <div class="walkthrough-content">
-          <h3>Shake For Emergency</h3>
-          <p>Sometimes you need to trigger help discreetly. Simply shaking your phone in a specific pattern activates
-            emergency mode, sending your location to trusted contacts.</p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> Works with your phone in your pocket or bag</li>
-            <li><i class="fas fa-check-circle"></i> Adjustable sensitivity to prevent false alarms</li>
-            <li><i class="fas fa-check-circle"></i> Silent activation for discreet emergency alerts</li>
-          </ul>
-        </div>
-        <div class="walkthrough-image">
-          <img
-            src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
-            alt="Shake Detection">
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3 class="feature-title">Voice Activated SOS</h3>
+            <p>Simply say "help" and the app automatically triggers the emergency protocol, even when the phone is
+              locked.</p>
+          </div>
         </div>
       </div>
-
-      <!-- Walkthrough Item 3 -->
-      <div class="walkthrough-box" id="walkthrough-3">
-        <div class="walkthrough-image">
-          <img
-            src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
-            alt="Safe Route Planning">
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-bell"></i>
+            </div>
+            <h3 class="feature-title">Scheduled Check-ins</h3>
+            <p>Set timed check-ins that automatically alert your emergency contacts if you don't respond within the
+              scheduled time.</p>
+          </div>
         </div>
-        <div class="walkthrough-content">
-          <h3>AI-Powered Safe Routes</h3>
-          <p>Our system analyzes crime data, lighting conditions, and pedestrian activity to suggest the safest routes
-            to your destination, helping you avoid potentially dangerous areas.</p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> Real-time route adjustments based on safety data</li>
-            <li><i class="fas fa-check-circle"></i> Prefer well-lit, populated streets for walking</li>
-            <li><i class="fas fa-check-circle"></i> Safety scores for different route options</li>
-          </ul>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-hand-paper"></i>
+            </div>
+            <h3 class="feature-title">Gesture Controls</h3>
+            <p>Use discreet gestures or shake your phone to trigger alerts without having to unlock your device or open
+              the app.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-directions"></i>
+            </div>
+            <h3 class="feature-title">Safe Route Navigation</h3>
+            <p>Get directions that prioritize well-lit, populated, and safer paths rather than just the fastest route.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="testimonial-section">
+    <div class="container">
+      <h2 class="section-title">What Users Say</h2>
+      <div class="testimonial-cards">
+        <div class="testimonial-card">
+          <div class="testimonial-img">
+            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Priya Sharma" class="img-fluid">
+          </div>
+          <h4>Priya Sharma</h4>
+          <p class="role">College Student, Delhi</p>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="quote">"SAFEHer has completely changed how I navigate the city. The safe route feature helps me
+            avoid unsafe areas, especially when I'm returning home late after classes."</p>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-img">
+            <img src="https://randomuser.me/api/portraits/women/36.jpg" alt="Anjali Patel" class="img-fluid">
+          </div>
+          <h4>Anjali Patel</h4>
+          <p class="role">Working Professional, Mumbai</p>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="quote">"The voice detection feature is a game-changer. I was in an uncomfortable situation once, and
+            just saying 'help' sent my location to my family. It's like having a personal bodyguard."</p>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-img">
+            <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="Deepika Mehta" class="img-fluid">
+          </div>
+          <h4>Deepika Mehta</h4>
+          <p class="role">Entrepreneur, Bangalore</p>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <p class="quote">"As someone who travels frequently for business, the safety analytics give me peace of mind
+            in new cities. The emergency button is right there when I need it. Highly recommend for all women!"</p>
         </div>
       </div>
     </div>
@@ -885,116 +731,69 @@
   <!-- CTA Section -->
   <section class="cta-section">
     <div class="container">
-      <h2>Ready to Feel Safer Everywhere You Go?</h2>
-      <p>Join thousands of women who trust SafeHer for their personal safety and peace of mind.</p>
-      <div class="cta-buttons">
-        <a href="/signup" class="cta-btn">Create Your Account</a>
-        <a href="/features" class="cta-btn">See All Features</a>
-      </div>
+      <h2 class="cta-title">Ready to Take Control of Your Safety?</h2>
+      <p class="cta-subtitle">Join thousands of women who feel safer every day with SAFEHer's intelligent safety
+        features.</p>
+      <a href="/signup" class="btn-light">Create Your Account Now</a>
     </div>
   </section>
 
-  <!-- Mobile Sticky CTA -->
-  <div class="mobile-sticky-cta d-md-none">
-    <a href="/signup" class="cta-btn">Get Started Now</a>
-  </div>
-
-  <script>
-    // Navigation toggle
-    document.getElementById('hamburger').addEventListener('click', function () {
-      const navLinks = document.querySelector('.nav-links');
-      navLinks.classList.toggle('active');
-
-      // Change icon based on state
-      const icon = this.querySelector('i');
-      if (navLinks.classList.contains('active')) {
-        icon.className = 'fas fa-times';
-      } else {
-        icon.className = 'fas fa-bars';
-      }
-    });
-
-    // Sticky header
-    window.addEventListener('scroll', function () {
-      const header = document.querySelector('header');
-      header.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // Enhanced Animation on scroll
-    const stepCards = document.querySelectorAll('.step-card');
-    const walkthroughBoxes = document.querySelectorAll('.walkthrough-box');
-
-    // Function to check if elements are in viewport and animate them
-    function checkElementsInView() {
-      const triggerBottom = window.innerHeight * 0.8;
-
-      stepCards.forEach((card, index) => {
-        const cardTop = card.getBoundingClientRect().top;
-
-        if (cardTop < triggerBottom) {
-          setTimeout(() => {
-            if (index === 0) {
-              card.style.animation = 'slideInLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            } else if (index === 1) {
-              card.style.animation = 'fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            } else {
-              card.style.animation = 'slideInRight 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            }
-          }, index * 200);
-        }
-      });
-
-      walkthroughBoxes.forEach((box, index) => {
-        const boxTop = box.getBoundingClientRect().top;
-
-        if (boxTop < triggerBottom) {
-          setTimeout(() => {
-            if (index % 2 === 0) {
-              box.style.animation = 'fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            } else {
-              box.style.animation = 'fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            }
-          }, index * 300);
-        }
-      });
-    }
-
-    window.addEventListener('scroll', checkElementsInView);
-    window.addEventListener('resize', checkElementsInView);
-
-    // Check if elements are in view on page load
-    window.addEventListener('load', function () {
-      setTimeout(checkElementsInView, 100);
-    });
-
-    // Card hover effects with slower animations
-    stepCards.forEach(card => {
-      card.addEventListener('mouseenter', function () {
-        const icon = this.querySelector('.step-icon');
-        icon.style.transition = 'all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        icon.style.transform = 'rotate(360deg) scale(1.1)';
-      });
-
-      card.addEventListener('mouseleave', function () {
-        const icon = this.querySelector('.step-icon');
-        icon.style.transition = 'all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        icon.style.transform = 'rotate(0deg) scale(1)';
-      });
-    });
-
-    // Add active state to current page link
-    document.addEventListener('DOMContentLoaded', function () {
-      const currentPath = window.location.pathname;
-      const navLinks = document.querySelectorAll('.nav-links a');
-
-      navLinks.forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-          link.style.color = 'var(--primary)';
-          link.style.fontWeight = '700';
-        }
-      });
-    });
-  </script>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="footer-logo">
+            <i class="fas fa-shield-alt"></i> SAFEHer
+          </div>
+          <p class="footer-text">Empowering women with technology for enhanced safety and peace of mind.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4 mb-4">
+          <div class="footer-links">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="/home">Home</a></li>
+              <li><a href="/features">Features</a></li>
+              <li><a href="/how-it-works">How It Works</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/signup">Sign Up</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="footer-links">
+            <h5>Features</h5>
+            <ul>
+              <li><a href="#">Live Tracking</a></li>
+              <li><a href="#">Emergency Alerts</a></li>
+              <li><a href="#">Voice Detection</a></li>
+              <li><a href="#">Safe Routes</a></li>
+              <li><a href="#">Area Safety</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="footer-links">
+            <h5>Contact Us</h5>
+            <ul>
+              <li><i class="fas fa-envelope me-2"></i> support@safeher.com</li>
+              <li><i class="fas fa-phone me-2"></i> +91 98765 43210</li>
+              <li><i class="fas fa-map-marker-alt me-2"></i> Bangalore, India</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 SAFEHer. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

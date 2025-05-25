@@ -10,7 +10,7 @@ const sendEmail = async (to, subject, text) => {
   });
 
   const mailOptions = {
-    from: `"Women Safety App" <${process.env.EMAIL_USER}>`,
+    from: `"SafeHER" <${process.env.EMAIL_USER}>`,
     to,
     subject,
     text
